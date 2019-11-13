@@ -29,3 +29,7 @@
     # activities
     # sightseeing, eg main monuments
 
+# MVP
+    # form to pick hawaii
+    # look up all the things
+    # show them on page
