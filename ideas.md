@@ -1,6 +1,7 @@
 ## Travel Planner
 
-# Basic idea: 
+# Basic idea
+    # For a given timeframe and location, tell traveler basic information to help plan their trip.
 
 # traveler questions
     # origin
@@ -14,13 +15,17 @@
 
 # APIs
     # airport finder api
+        # https://rapidapi.com/cometari/api/airportsfinder/endpoints
     # openweather finder
     # activities api
+        # https://www.programmableweb.com/api/leezair-partner
+        # https://www.programmableweb.com/api/adventure-bucket-list
+        # https://api-docs.musement.com/#search
 
 # stretch ideas
     # hotels in area
     # airbnb, vrbo
     # restaurants
     # activities
-    # sightseeing
+    # sightseeing, eg main monuments
 
