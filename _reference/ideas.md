@@ -17,6 +17,10 @@
     # airport finder api
         # https://rapidapi.com/cometari/api/airportsfinder/endpoints
     # openweather finder
+
+    # twitter
+    # youtube videos
+
     # activities api
         # https://www.programmableweb.com/api/leezair-partner
         # https://www.programmableweb.com/api/adventure-bucket-list
