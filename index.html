@@ -20,26 +20,33 @@
         <form class="ui form">
             <div class="field">
                 <label>Where to?</label>
-                <input type="text" name="destination" placeholder="Destination">
+                <input type="text" name="destination" placeholder="Destination" id="cityinput">
             </div>
+            <!--
             <div class="field">
                 <label>When?</label>
-                <input type="text" name="date" placeholder="mm/dd/yyyy">
+                <input type="text" name="date" placeholder="mm/dd/yyyy" id="dateinput">
             </div>
-            <button class="ui button" type="submit">Search</button>
+            -->
+            <button class="ui button" type="submit" id="searchbtn">Search</button>
         </form>
     </div>
 
     <div class="ui raised very padded container segment">
         <!-- text -->
         <h2 class="ui header">Results</h2>
-        <div class="ui segments">
-            <div class="ui segment">
+        <div id="resultstxt"></div>
+        <!--
+        <div class="ui segments" id="resultstxt">
+            <div class="ui segment" id="airporttxt">
+                
                 <p>Nearest airport:</p>
                 <p></p>
+                
             </div>
             <div class="ui segment">
-                <div class="ui five column grid">
+                <div class="ui five column grid" id="weatherfivedays">
+                    
                     <div class="column">
                         <div class="ui card fluid">
                             <div class="content">
@@ -219,39 +226,45 @@
                                     <button class="ui button">Join Project</button>
                                 </div>
                             </div>
-                    </div>            
+                    </div>  
+                             
                 </div>
             </div>
-            <div class="ui segment">
+            <div class="ui segment" id="misc">
+                
                 <p>What to pack:</p>
+                
             </div>
         </div>
+        -->
     </div>
 
-        <script src="https://code.jquery.com/jquery-3.1.1.min.js"
-            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
-        <script>
-            $('.ui.form').form({
-                inline: true,
-                fields: {
-                    destination: {
-                        rules: [{
-                            type: 'empty',
-                            prompt: "Please enter a valid destiation"
-                        }]
-                    },
-                    date: {
-                        identifier: 'date',
-                        rules: [{
-                            type: "regExp[/^(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\\d\\d$/]",
-                            prompt: "Please select a valid mm/dd/yyyy date"
-                        }]
-                    }
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <script>
+        $('.ui.form').form({
+            inline: true,
+            fields: {
+                destination: {
+                    rules: [{
+                        type: 'empty',
+                        prompt: "Please enter a valid destiation"
+                    }]
+                },
+                date: {
+                    identifier: 'date',
+                    rules: [{
+                        type: "regExp[/^(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\\d\\d$/]",
+                        prompt: "Please select a valid mm/dd/yyyy date"
+                    }]
                 }
-            });
-        </script>
-
+            }
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="Assets/Scripts/script_maria.js"></script>
+    <script src="Assets/Scripts/script_nelan.js"></script>
 </body>
 
 </html>
