@@ -16,11 +16,11 @@
 <body>
 
     <div class="ui raised very padded  container segment">
-        <h2 class="ui header">Search</h2>
+        <h2 class="ui header" style="font-size: 50px;">Search</h2>
         <form class="ui form">
             <div class="field">
-                <label>Where to?</label>
-                <input type="text" name="destination" placeholder="Destination" id="cityinput">
+                <label style="font-size: 15px;">Where to?</label>
+                <input type="text" name="destination" placeholder="Destination" id="cityinput" style="font-size: 15px;">
             </div>
             <!--
             <div class="field">
@@ -28,221 +28,220 @@
                 <input type="text" name="date" placeholder="mm/dd/yyyy" id="dateinput">
             </div>
             -->
-            <button class="ui button" type="submit" id="searchbtn">Search</button>
+            <button class="ui button" type="submit" id="searchbtn" style="font-size: 15px;">Search</button>
         </form>
     </div>
 
     <div class="ui raised very padded container segment">
         <!-- text -->
-        <h2 class="ui header">Results</h2>
+        <h2 class="ui header" style="color: black; font-size: 50px;">Results</h2>
         <div id="resultstxt"></div>
         <!--
         <div class="ui segments" id="resultstxt">
-            <div class="ui segment" id="airporttxt">
-                
+            <div class="ui segment" id="airporttxt">               
                 <p>Nearest airport:</p>
-                <p></p>
-                
+                <p></p>                
             </div>
             <div class="ui segment">
                 <div class="ui five column grid" id="weatherfivedays">
-                    
-                    <div class="column">
-                        <div class="ui card fluid">
+                    <div class="row" id="currentweather">
+                            <div class="ui centered card fluid" style="text-align: center;">
+                                <div class="content">
+                                    <h1>Current Conditions</h1>
+                                </div>
+                                <div class="content">
+                                    <h4 class="ui sub header"><img id="wicon" src="Assets/Img/iconfinder_sun_2995005.png" alt="Weather icon" style="font-size: 100px;"></h4>
+                                    <div class="ui small feed">
+                                        <div class="event" >
+                                            <div class="content" style="text-align: center;">
+                                                <div class="summary">
+                                                ${"Temperature: "+Math.round(temperature)+" "+String.fromCharCode(8457)}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="row" id="futureweather">
+                        <div class="column">
+                            <div class="ui centered card fluid">
+                                <div class="content">
+                                    <div class="header">${date}</div>
+                                </div>
+                                <div class="content">
+                                    <h4 class="ui sub header"><img id="wicon" src="${iconurl}" alt="Weather icon"></h4>
+                                    <div class="ui small feed">
+                                        <div class="event">
+                                            <div class="content">
+                                                <div class="summary">
+                                                ${"Temperature: "+Math.round(temperature)+" "+String.fromCharCode(8457)}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="event">
+                                            <div class="content">
+                                                <div class="summary">
+                                                    ${"Humidity: "+humidity+" %"}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="event">
+                                            <div class="content">
+                                                <div class="summary">
+                                                    ${"Wind Speed: "+Math.round(windSpeed)+" MPH"}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column">
                             <div class="content">
-                                <div class="header">Wx: Day 1</div>
+                                <div class="header">${date}</div>
                             </div>
                             <div class="content">
-                                <h4 class="ui sub header">Activity</h4>
+                                <h4 class="ui sub header"><img id="wicon" src="${iconurl}" alt="Weather icon"></h4>
                                 <div class="ui small feed">
                                     <div class="event">
                                         <div class="content">
                                             <div class="summary">
-                                                <a>Elliot Fu</a> added <a>Jenny Hess</a> to the project
+                                            ${"Temperature: "+Math.round(temperature)+" "+String.fromCharCode(8457)}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="event">
                                         <div class="content">
                                             <div class="summary">
-                                                <a>Stevie Feliciano</a> was added as an <a>Administrator</a>
+                                                ${"Humidity: "+humidity+" %"}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="event">
                                         <div class="content">
                                             <div class="summary">
-                                                <a>Helen Troy</a> added two pictures
+                                                ${"Wind Speed: "+Math.round(windSpeed)+" MPH"}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="extra content">
-                                <button class="ui button">Join Project</button>
                             </div>
                         </div>
-                    </div>
-                    <div class="column">
-                            <div class="ui card fluid">
+                        <div class="column">
+                            <div class="ui centered card fluid">
                                 <div class="content">
-                                    <div class="header">Wx: Day 1</div>
+                                    <div class="header">${date}</div>
                                 </div>
                                 <div class="content">
-                                    <h4 class="ui sub header">Activity</h4>
+                                    <h4 class="ui sub header"><img id="wicon" src="${iconurl}" alt="Weather icon"></h4>
                                     <div class="ui small feed">
                                         <div class="event">
                                             <div class="content">
                                                 <div class="summary">
-                                                    <a>Elliot Fu</a> added <a>Jenny Hess</a> to the project
+                                                ${"Temperature: "+Math.round(temperature)+" "+String.fromCharCode(8457)}
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="event">
                                             <div class="content">
                                                 <div class="summary">
-                                                    <a>Stevie Feliciano</a> was added as an <a>Administrator</a>
+                                                    ${"Humidity: "+humidity+" %"}
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="event">
                                             <div class="content">
                                                 <div class="summary">
-                                                    <a>Helen Troy</a> added two pictures
+                                                    ${"Wind Speed: "+Math.round(windSpeed)+" MPH"}
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="extra content">
-                                    <button class="ui button">Join Project</button>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="content">
+                                <div class="header">${date}</div>
+                            </div>
+                            <div class="content">
+                                <h4 class="ui sub header"><img id="wicon" src="${iconurl}" alt="Weather icon"></h4>
+                                <div class="ui small feed">
+                                    <div class="event">
+                                        <div class="content">
+                                            <div class="summary">
+                                            ${"Temperature: "+Math.round(temperature)+" "+String.fromCharCode(8457)}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="event">
+                                        <div class="content">
+                                            <div class="summary">
+                                                ${"Humidity: "+humidity+" %"}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="event">
+                                        <div class="content">
+                                            <div class="summary">
+                                                ${"Wind Speed: "+Math.round(windSpeed)+" MPH"}
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                    </div>
-                    <div class="column">
-                            <div class="ui card fluid">
+                        </div>
+                        <div class="column">
+                            <div class="ui centered card fluid">
                                 <div class="content">
-                                    <div class="header">Wx: Day 1</div>
+                                    <div class="header">${date}</div>
                                 </div>
                                 <div class="content">
-                                    <h4 class="ui sub header">Activity</h4>
+                                    <h4 class="ui sub header"><img id="wicon" src="${iconurl}" alt="Weather icon"></h4>
                                     <div class="ui small feed">
                                         <div class="event">
                                             <div class="content">
                                                 <div class="summary">
-                                                    <a>Elliot Fu</a> added <a>Jenny Hess</a> to the project
+                                                ${"Temperature: "+Math.round(temperature)+" "+String.fromCharCode(8457)}
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="event">
                                             <div class="content">
                                                 <div class="summary">
-                                                    <a>Stevie Feliciano</a> was added as an <a>Administrator</a>
+                                                    ${"Humidity: "+humidity+" %"}
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="event">
                                             <div class="content">
                                                 <div class="summary">
-                                                    <a>Helen Troy</a> added two pictures
+                                                    ${"Wind Speed: "+Math.round(windSpeed)+" MPH"}
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="extra content">
-                                    <button class="ui button">Join Project</button>
-                                </div>
                             </div>
-                    </div>
-                    <div class="column">
-                            <div class="ui card fluid">
-                                <div class="content">
-                                    <div class="header">Wx: Day 1</div>
-                                </div>
-                                <div class="content">
-                                    <h4 class="ui sub header">Activity</h4>
-                                    <div class="ui small feed">
-                                        <div class="event">
-                                            <div class="content">
-                                                <div class="summary">
-                                                    <a>Elliot Fu</a> added <a>Jenny Hess</a> to the project
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="event">
-                                            <div class="content">
-                                                <div class="summary">
-                                                    <a>Stevie Feliciano</a> was added as an <a>Administrator</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="event">
-                                            <div class="content">
-                                                <div class="summary">
-                                                    <a>Helen Troy</a> added two pictures
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="extra content">
-                                    <button class="ui button">Join Project</button>
-                                </div>
-                            </div>
-                    </div>
-                    <div class="column">
-                            <div class="ui card fluid">
-                                <div class="content">
-                                    <div class="header">Wx: Day 1</div>
-                                </div>
-                                <div class="content">
-                                    <h4 class="ui sub header">Activity</h4>
-                                    <div class="ui small feed">
-                                        <div class="event">
-                                            <div class="content">
-                                                <div class="summary">
-                                                    <a>Elliot Fu</a> added <a>Jenny Hess</a> to the project
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="event">
-                                            <div class="content">
-                                                <div class="summary">
-                                                    <a>Stevie Feliciano</a> was added as an <a>Administrator</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="event">
-                                            <div class="content">
-                                                <div class="summary">
-                                                    <a>Helen Troy</a> added two pictures
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="extra content">
-                                    <button class="ui button">Join Project</button>
-                                </div>
-                            </div>
-                    </div>  
-                             
+                        </div>  
+                    </div>         
                 </div>
             </div>
-            <div class="ui segment" id="misc">
-                
-                <p>What to pack:</p>
-                
+            <div class="ui segment" id="misc">                
+                <p>What to pack:</p>                
             </div>
         </div>
-        -->
+    -->
     </div>
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"
         integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
-    <script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+
+    <!--<script>
         $('.ui.form').form({
             inline: true,
             fields: {
@@ -261,7 +260,7 @@
                 }
             }
         });
-    </script>
+    </script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="Assets/Scripts/script_maria.js"></script>
     <script src="Assets/Scripts/script_nelan.js"></script>
