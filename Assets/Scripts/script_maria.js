@@ -5,68 +5,146 @@ api.openweathermap.org/data/2.5/forecast?lat=35&lon=139
 call api with info and display the weather for today in the first row on the right  and the weather for the next five days below
 */
 var key = "8b03830118ea1502c8d1ce9605fe6485";
+var latitude;
+var longitude;
 
 $(document).ready(function(event){
     console.log("doc ready")
-    ///issue: if user presses enter key it doesnt work
-    $("#searchbtn").on("click", function(event){
-        event.preventDefault();
-        console.log("button pressed");
-        var cityTxt = $("#cityinput").val();
-        $("#cityinput").val("");
-        currentWeatherAPICall(cityTxt);   
-        createContainer(cityTxt); 
-        getAirportCode(cityTxt);
+    ///issue: if user presses enter key it only kinda work
+    $('.ui.form').validate({
+        rules: {
+            destination: {
+                required: true
+            }
+        },
+        messages : {
+            destination: {
+                required: "Please enter a valid destiation"
+            }
+        },
+        submitHandler: function() {
+            //event.preventDefault();
+            console.log("Submitted!")
+            var cityTxt = $("#cityinput").val();
+            $("#cityinput").val("");
+            currentWeatherAPICall(cityTxt);  
+            createContainer(cityTxt);
+            getAirportCode(cityTxt);
+        }
     });
+    
 
 })
 
 function currentWeatherAPICall(city){
     var queryURLCurentWeather = "https://api.openweathermap.org/data/2.5/forecast?q="+city+"&units=Imperial&appid=" + key;
+    ////add success: getPOIs()
     $.ajax({
         url: queryURLCurentWeather,
         method: "GET"
     }).then(function(resp){
         console.log("current weather api")
+        console.log(resp)
         var cityName = resp.city.name=== null ? "" : resp.city.name;
         var cityNameNoSpace = cityName.split(' ').join('_')
+        latitude = resp.city.coord.lat
+        longitude = resp.city.coord.lon
         var response = buildWeatherList(resp.list)
-        for(var i = 0; i<5; i++){            
-            var date = response[i].dt=== null ? "" : moment.unix(response[i].dt).format("MM-DD-YYYY"); 
-            var weathersign = response[i].weather[0].main=== null ? "" : response[i].weather[0].main;
-            var iconcode = response[i].weather[0].icon;
-            var iconurl = "https://openweathermap.org/img/wn/" + iconcode + "@2x.png";
-            var temperature = response[i].main.temp=== null ? "" : response[i].main.temp;
-            var humidity = response[i].main.humidity=== null ? "" : response[i].main.humidity;
-            var windSpeed = response[i].wind.speed=== null ? "" : response[i].wind.speed;
-            var weatherID="#weatherfivedays"+cityNameNoSpace
-            $(weatherID).append(`
-            <div class="column">
-                <div class="ui card fluid">
-                    <div class="content">
-                        <div class="header">${date}</div>
+        createWeatherContainer("#currentweather",response[0])
+        for(var i = 1; i<=5; i++){   
+            createWeatherContainer("#futureweather",response[i])                          
+        }        
+    })    
+}
+
+function buildWeatherList(JSONList){
+    var arr = [];
+    var arrDayZero = [];
+    var arrDayOne = [];
+    var arrDayTwo = [];
+    var arrDayThree = [];
+    var arrDayFour = [];
+    var arrDayFive = [];
+    var dayZero = moment().format("MM-DD-YYYY");
+    var dayOne = moment().add(1, 'days').format("MM-DD-YYYY");
+    var dayTwo = moment().add(2, 'days').format("MM-DD-YYYY");
+    var dayThree = moment().add(3, 'days').format("MM-DD-YYYY");
+    var dayFour = moment().add(4, 'days').format("MM-DD-YYYY");
+    var dayFive = moment().add(5, 'days').format("MM-DD-YYYY");    
+    var count = 0
+    JSONList.forEach(obj => {
+        var dateForcast = moment.unix(obj.dt).format("MM-DD-YYYY");
+        
+        if((dayOne) === dateForcast){
+            arrDayOne.push(obj);    
+        }
+        else if((dayTwo) === dateForcast){
+            arrDayTwo.push(obj);
+        }
+        else if((dayThree) === dateForcast){
+            arrDayThree.push(obj)
+        }
+        else if((dayFour) === dateForcast){
+            arrDayFour.push(obj)
+        }
+        else if((dayFive) === dateForcast){
+            arrDayFive.push(obj)
+        }    
+        count ++
+    });
+    arr.push(JSONList[0]); 
+    arr.push(arrDayOne[(Math.round(arrDayOne.length/2))-1])
+    arr.push(arrDayTwo[(Math.round(arrDayTwo.length/2))-1])
+    arr.push(arrDayThree[(Math.round(arrDayThree.length/2))-1])
+    arr.push(arrDayFour[(Math.round(arrDayFour.length/2))-1])
+    arr.push(arrDayFive[(Math.round(arrDayFive.length/2))-1])
+    console.log(arr)
+    return arr
+}
+
+function createWeatherContainer(id,obj){
+    var date = obj.dt=== null ? "" : moment.unix(obj.dt).format("MM-DD-YYYY"); 
+    var weathersign = obj.weather[0].main=== null ? "" : obj.weather[0].main;
+    var iconcode = obj.weather[0].icon;
+    var iconurl = weatherconditions(iconcode);
+    var temperature = obj.main.temp=== null ? "" : obj.main.temp;
+    var humidity = obj.main.humidity=== null ? "" : obj.main.humidity;
+    var windSpeed = obj.wind.speed=== null ? "" : obj.wind.speed;
+    if(id === "#currentweather"){
+        $(id).append(`
+            <div class="ui centered card fluid" style="text-align: center; box-shadow: none;">
+                <div class="content">
+                    <div class="header" style="font-size: 50px; border: none; box-shadow: none;">Current Conditions</div>
+                </div>
+                <div class="content" style="border: none;">
+                    <h4 class="ui sub header"><img id="wicon" src="${iconurl}" alt="Weather icon" style="font-size: 50px;"></h4>
+                    <div class="ui small feed">
+                        <div class="event">
+                            <div class="content" style="text-align: center;">
+                                <div class="summary" style="font-size: 50px;">
+                                ${Math.round(temperature)+" "+String.fromCharCode(8457)}
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                </div>
+            </div>
+        `)
+    }
+    else{
+        $(id).append(`
+            <div class="column">
+                <div class="ui centered card fluid" style="text-align: center; border: none; box-shadow: none;">
                     <div class="content">
-                        <h4 class="ui sub header"><img id="wicon" src="${iconurl}" alt="Weather icon"></h4>
+                        <div class="header" style="font-size: 30px; border: none; box-shadow: none;">${date}</div>
+                    </div>
+                    <div class="content" style="border: none;">
+                        <h4 class="ui sub header"><img id="wicon" src="${iconurl}" alt="Weather icon" style="font-size: 50px;"></h4>
                         <div class="ui small feed">
                             <div class="event">
-                                <div class="content">
-                                    <div class="summary">
-                                    ${"Temperature: "+Math.round(temperature)+" "+String.fromCharCode(8457)}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="event">
-                                <div class="content">
-                                    <div class="summary">
-                                        ${"Humidity: "+humidity+" %"}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="event">
-                                <div class="content">
-                                    <div class="summary">
-                                        ${"Wind Speed: "+Math.round(windSpeed)+" MPH"}
+                                <div class="content" style="text-align: center;">
+                                    <div class="summary" style="font-size: 20px;">
+                                    ${Math.round(temperature)+" "+String.fromCharCode(8457)}
                                     </div>
                                 </div>
                             </div>
@@ -74,68 +152,29 @@ function currentWeatherAPICall(city){
                     </div>
                 </div>
             </div>
-            `)                
-            
-        }
-        
-    })
-    
-    
-}
-
-function buildWeatherList(JSONList){
-    var arr = [];
-    var dayZero = moment().format("MM-DD-YYYY");
-    var dayOne = moment().add(1, 'days').format("MM-DD-YYYY");
-    var dayTwo = moment().add(2, 'days').format("MM-DD-YYYY");
-    var dayThree = moment().add(3, 'days').format("MM-DD-YYYY");
-    var dayFour = moment().add(4, 'days').format("MM-DD-YYYY");
-    var dayFive = moment().add(5, 'days').format("MM-DD-YYYY");
-    JSONList.forEach(obj => {
-        var dateForcast = moment.unix(obj.dt).format("MM-DD-YYYY HH");
-        if(dayZero === moment.unix(obj.dt).format("MM-DD-YYYY")){
-            arr.push(obj);
-            
-        }
-        else if((dayOne + " 12") === dateForcast){
-            arr.push(obj);
-            
-        }
-        else if((dayTwo + " 12") === dateForcast){
-            arr.push(obj);
-        }
-        else if((dayThree + " 12") === dateForcast){
-            arr.push(obj)
-        }
-        else if((dayFour + " 12") === dateForcast){
-            arr.push(obj)
-        }
-        else if((dayFive + " 12") === dateForcast){
-            arr.push(obj)
-        }
-
-        
-    });
-    console.log(arr)
-    return arr
+        `)  
+    }
 }
 
 function createContainer(city,airport){
     var cityNoSpace = city.split(' ').join('_')
-    var weatherID="weatherfivedays"+cityNoSpace
     $("#resultstxt").prepend(`
     <div class="ui segments" >
-        <div class="ui segment" id="airporttxt">
-            <p id="airportcodestring">Nearest airports in ${city}:</p>
-            <p id="airportcodetxt"></p>
+        <div class="ui segment" id="airporttxt" style="color: black; text-align: center; font-size: 30px;">
+            <p id="airportcodestring" style="color: black; text-align: center; font-size: 20px;">Nearest airports in ${city}:</p>
+            <p id="airportcodetxt" style="color: black; text-align: center; font-size: 20px;"></p>
         </div>
         <div class="ui segment">
-            <div class="ui five column grid" id=${weatherID}>
+            <div class="ui five column grid">
+                <div class="row" id="currentweather" style="border: none; box-shadow: none;">
+                </div>
+                <div class="row" id="futureweather">
+                </div>
             </div>
         </div>
-        <div class="ui segment" id="misc">
-            <p>What to pack</p>
-            <p></p>
+        <div class="ui segment" id="misc" style="color: black; text-align: center; font-size: 30px;">
+            <p style="color: black; text-align: center; font-size: 20px;">What to pack</p>
+            <p style="color: black; text-align: center; font-size: 20px;"></p>
         </div>
     </div>
     `)
@@ -152,10 +191,8 @@ function getAirportCode(city){
             "x-rapidapi-host": "cometari-airportsfinder-v1.p.rapidapi.com",
             "x-rapidapi-key": "71b4c678fdmsh03d589cc0b0037ap1bf26bjsn01231eb45922"
         }
-    }
-    
-    $.ajax(settings).then(function (response) {
-        
+    }   
+    $.ajax(settings).then(function (response) {        
         if(response.length === 0){
             $("#airportcodestring").text("No airport found near "+city)
         }
@@ -164,7 +201,6 @@ function getAirportCode(city){
         }
         else{
             response.forEach(element => {
-                console.log(element)
                 if(airportlist === ""){
                     airportlist = element.code
                 }
@@ -172,9 +208,47 @@ function getAirportCode(city){
                     airportlist = airportlist +", " +element.code
                 }
             });
-            console.log(airportlist)
             $("#airportcodetxt").text(airportlist)
         }
-
     });
 }
+
+function weatherconditions(iconcode){
+    var srcLink;
+    if(iconcode === "01d"){
+        //clear
+        srcLink = "Assets/Img/iconfinder_sun_2995005.png"
+    }
+    else if(iconcode === "01n" || iconcode === "02n" ){
+        //clear
+        srcLink = "Assets/Img/iconfinder_moon_2995009.png"
+    }
+    else if(iconcode === "02d" ){
+        //partly cloudy
+        srcLink = "Assets/Img/iconfinder_cloudy_2995001.png"
+    }
+    else if(iconcode === "03d" || iconcode === "03n" || iconcode === "04d" || iconcode === "04n" ){
+        //cloudy
+        srcLink = "Assets/Img/iconfinder_cloud_2995000.png"
+    }
+    else if(iconcode === "09d" || iconcode === "09n" || iconcode === "10d" || iconcode === "10n"){
+        //rain
+        srcLink = "Assets/Img/iconfinder_rain-cloud_2995003.png"
+    }
+    else if(iconcode === "11d" || iconcode === "11n" ){
+        //thunder
+        srcLink = "Assets/Img/iconfinder_flash-cloud_2995010.png"
+    }
+    else if(iconcode === "13d" || iconcode === "13n" ){
+        //snow
+        srcLink = "Assets/Img/iconfinder_snow-cloud_2995007.png"
+    }
+    else if(iconcode === "50d" || iconcode === "50n" ){
+        //mist
+        srcLink = "Assets/Img/iconfinder_rain_2995004.png"
+    }
+    return srcLink
+}
+
+///new function
+function getPOIs(){}
