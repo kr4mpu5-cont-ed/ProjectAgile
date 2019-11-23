@@ -1,7 +1,8 @@
 <html>
-
 <head>
+    <title>Quick Get Away</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC:700&display=swap" rel="stylesheet">
     <style>
         body {
             padding-top: 50px;
@@ -10,13 +11,16 @@
             color: red;
             width: 1500px
         }
+        #appTitle {
+            font-size: 10rem; font-family: 'Amatic SC', cursive;
+        }
     </style>
 </head>
 
 <body>
     <div class="ui huge header" style="font-size: 50px; text-align: center;">
         <img src="Assets/Img/iconfinder_plane-paper-toy-science-school_2824447.png">
-        <div class="content">
+        <div class="content" id="appTitle">
             QUICK GET AWAY
         </div>
     </div>
@@ -27,12 +31,7 @@
                 <label style="font-size: 15px;">Where to?</label>
                 <input type="text" name="destination" placeholder="Destination" id="cityinput" style="font-size: 15px;">
             </div>
-            <!--
-            <div class="field">
-                <label>When?</label>
-                <input type="text" name="date" placeholder="mm/dd/yyyy" id="dateinput">
-            </div>
-            -->
+
             <button class="ui button" type="submit" id="searchbtn" style="font-size: 15px;">Search</button>
         </form>
     </div>
@@ -41,204 +40,7 @@
         <!-- text -->
         <h2 class="ui header" style="color: black; font-size: 50px;">Results</h2>
         <div id="resultstxt"></div>
-        <!--
-        <div class="ui segments" id="resultstxt">
-            <div class="ui segment" id="airporttxt">               
-                <p>Nearest airport:</p>
-                <p></p>                
-            </div>
-            <div class="ui segment">
-                <div class="ui five column grid" id="weatherfivedays">
-                    <div class="row" id="currentweather">
-                            <div class="ui centered card fluid" style="text-align: center;">
-                                <div class="content">
-                                    <h1>Current Conditions</h1>
-                                </div>
-                                <div class="content">
-                                    <h4 class="ui sub header"><img id="wicon" src="Assets/Img/iconfinder_sun_2995005.png" alt="Weather icon" style="font-size: 100px;"></h4>
-                                    <div class="ui small feed">
-                                        <div class="event" >
-                                            <div class="content" style="text-align: center;">
-                                                <div class="summary">
-                                                ${"Temperature: "+Math.round(temperature)+" "+String.fromCharCode(8457)}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    
-                                    </div>
-                                </div>
-                            </div>
-                    </div>
-                    <div class="row" id="futureweather">
-                        <div class="column">
-                            <div class="ui centered card fluid">
-                                <div class="content">
-                                    <div class="header">${date}</div>
-                                </div>
-                                <div class="content">
-                                    <h4 class="ui sub header"><img id="wicon" src="${iconurl}" alt="Weather icon"></h4>
-                                    <div class="ui small feed">
-                                        <div class="event">
-                                            <div class="content">
-                                                <div class="summary">
-                                                ${"Temperature: "+Math.round(temperature)+" "+String.fromCharCode(8457)}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="event">
-                                            <div class="content">
-                                                <div class="summary">
-                                                    ${"Humidity: "+humidity+" %"}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="event">
-                                            <div class="content">
-                                                <div class="summary">
-                                                    ${"Wind Speed: "+Math.round(windSpeed)+" MPH"}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="column">
-                            <div class="content">
-                                <div class="header">${date}</div>
-                            </div>
-                            <div class="content">
-                                <h4 class="ui sub header"><img id="wicon" src="${iconurl}" alt="Weather icon"></h4>
-                                <div class="ui small feed">
-                                    <div class="event">
-                                        <div class="content">
-                                            <div class="summary">
-                                            ${"Temperature: "+Math.round(temperature)+" "+String.fromCharCode(8457)}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="event">
-                                        <div class="content">
-                                            <div class="summary">
-                                                ${"Humidity: "+humidity+" %"}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="event">
-                                        <div class="content">
-                                            <div class="summary">
-                                                ${"Wind Speed: "+Math.round(windSpeed)+" MPH"}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="column">
-                            <div class="ui centered card fluid">
-                                <div class="content">
-                                    <div class="header">${date}</div>
-                                </div>
-                                <div class="content">
-                                    <h4 class="ui sub header"><img id="wicon" src="${iconurl}" alt="Weather icon"></h4>
-                                    <div class="ui small feed">
-                                        <div class="event">
-                                            <div class="content">
-                                                <div class="summary">
-                                                ${"Temperature: "+Math.round(temperature)+" "+String.fromCharCode(8457)}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="event">
-                                            <div class="content">
-                                                <div class="summary">
-                                                    ${"Humidity: "+humidity+" %"}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="event">
-                                            <div class="content">
-                                                <div class="summary">
-                                                    ${"Wind Speed: "+Math.round(windSpeed)+" MPH"}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="column">
-                            <div class="content">
-                                <div class="header">${date}</div>
-                            </div>
-                            <div class="content">
-                                <h4 class="ui sub header"><img id="wicon" src="${iconurl}" alt="Weather icon"></h4>
-                                <div class="ui small feed">
-                                    <div class="event">
-                                        <div class="content">
-                                            <div class="summary">
-                                            ${"Temperature: "+Math.round(temperature)+" "+String.fromCharCode(8457)}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="event">
-                                        <div class="content">
-                                            <div class="summary">
-                                                ${"Humidity: "+humidity+" %"}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="event">
-                                        <div class="content">
-                                            <div class="summary">
-                                                ${"Wind Speed: "+Math.round(windSpeed)+" MPH"}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="column">
-                            <div class="ui centered card fluid">
-                                <div class="content">
-                                    <div class="header">${date}</div>
-                                </div>
-                                <div class="content">
-                                    <h4 class="ui sub header"><img id="wicon" src="${iconurl}" alt="Weather icon"></h4>
-                                    <div class="ui small feed">
-                                        <div class="event">
-                                            <div class="content">
-                                                <div class="summary">
-                                                ${"Temperature: "+Math.round(temperature)+" "+String.fromCharCode(8457)}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="event">
-                                            <div class="content">
-                                                <div class="summary">
-                                                    ${"Humidity: "+humidity+" %"}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="event">
-                                            <div class="content">
-                                                <div class="summary">
-                                                    ${"Wind Speed: "+Math.round(windSpeed)+" MPH"}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>  
-                    </div>         
-                </div>
-            </div>
-            <div class="ui segment" id="misc">                
-                <p>What to pack:</p>                
-            </div>
-        </div>
-    -->
+
     </div>
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"
@@ -246,29 +48,8 @@
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 
-    <!--<script>
-        $('.ui.form').form({
-            inline: true,
-            fields: {
-                destination: {
-                    rules: [{
-                        type: 'empty',
-                        prompt: "Please enter a valid destiation"
-                    }]
-                },
-                date: {
-                    identifier: 'date',
-                    rules: [{
-                        type: "regExp[/^(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\\d\\d$/]",
-                        prompt: "Please select a valid mm/dd/yyyy date"
-                    }]
-                }
-            }
-        });
-    </script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="Assets/Scripts/script_maria.js"></script>
-    <!-- <script src="Assets/Scripts/script_nelan.js"></script> -->
 </body>
 
 </html>
