@@ -115,9 +115,12 @@ function createWeatherContainer(id,obj){
         $(id).append(`
             <div class="ui centered card fluid" style="text-align: center; box-shadow: none;">
                 <div class="content">
-                    <div class="header" style="font-size: 50px; border: none; box-shadow: none;">Current Conditions</div>
+                    <div class="header" style="font-size: 40px; border: none; box-shadow: none; text-align: left;">Weather</div>
                 </div>
-                <div class="content" style="border: none;">
+                <div class="content">
+                    <div class="header" style="font-size: 30px; border: none; box-shadow: none;">Now</div>
+                </div>
+                <div class="content" style="border: none; margin-top:-10px;">
                     <h4 class="ui sub header"><img id="wicon" src="${iconurl}" alt="Weather icon" style="font-size: 50px;"></h4>
                     <div class="ui small feed">
                         <div class="event">
@@ -161,9 +164,9 @@ function createContainer(city,airport){
     var cityNoSpace = city.split(' ').join('_')
     $("#resultstxt").prepend(`
     <div class="ui segments" >
-        <div class="ui segment" id="airporttxt" style="color: black; text-align: center; font-size: 30px;">
-            <p id="airportcodestring" style="color: black; text-align: center; font-size: 20px;">Nearest airports in ${city}:</p>
-            <p id="airportcodetxt" style="color: black; text-align: center; font-size: 20px;"></p>
+        <div class="ui segment" id="airporttxt" style="color: black; font-size: 30px;">
+            <p id="airportcodestring" style="color: black; font-size: 40px; font-weight:bold;">${city}</p>
+            <p id="airportcodetxt" style="color: black; font-size: 20px;"></p>
         </div>
         <div class="ui segment">
             <div class="ui five column grid">
@@ -174,7 +177,7 @@ function createContainer(city,airport){
             </div>
         </div>
         <div class="ui segment" id="misc">
-            <p style="color: black; text-align: center; font-size: 20px;">Points of Interest</p>
+            <p style="color: black; text-align: left; font-size: 40px; font-weight:bold; ">Points of Interest</p>
             <p style="color: black; text-align: center; font-size: 20px;"></p>
             <div class="ui cards" id="pois">
             </div>
@@ -185,6 +188,7 @@ function createContainer(city,airport){
 
 function getAirportCode(city){
     var airportlist = ""
+    console.log(city)
     var settings = {
         "async": true,
         "crossDomain": true,
@@ -195,12 +199,14 @@ function getAirportCode(city){
             "x-rapidapi-key": "71b4c678fdmsh03d589cc0b0037ap1bf26bjsn01231eb45922"
         }
     }   
-    $.ajax(settings).then(function (response) {        
+    $.ajax(settings).then(function (response) {  
+        console.log(response)     
         if(response.length === 0){
-            $("#airportcodestring").text("No airport found near "+city)
+            $("#airportcodetxt").text("No airport found near "+city)
         }
         else if(response.length === 1){
-            airportlist = response.code
+            airportlist = response[0].code   
+            $("#airportcodetxt").text("Nearest airport: "+airportlist)         
         }
         else{
             response.forEach(element => {
@@ -211,7 +217,8 @@ function getAirportCode(city){
                     airportlist = airportlist +", " +element.code
                 }
             });
-            $("#airportcodetxt").text(airportlist)
+            console.log("Nearest airports: "+airportlist) 
+            $("#airportcodetxt").text("Nearest airports: "+airportlist)
         }
     });
 }
