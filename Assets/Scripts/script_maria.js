@@ -30,6 +30,7 @@ $(document).ready(function(event){
             currentWeatherAPICall(cityTxt);  
             createContainer(cityTxt);
             getAirportCode(cityTxt);
+            getPOIs(cityTxt);
         }
     });
     
@@ -172,9 +173,11 @@ function createContainer(city,airport){
                 </div>
             </div>
         </div>
-        <div class="ui segment" id="misc" style="color: black; text-align: center; font-size: 30px;">
-            <p style="color: black; text-align: center; font-size: 20px;">What to pack</p>
+        <div class="ui segment" id="misc">
+            <p style="color: black; text-align: center; font-size: 20px;">Points of Interest</p>
             <p style="color: black; text-align: center; font-size: 20px;"></p>
+            <div class="ui cards" id="pois">
+            </div>
         </div>
     </div>
     `)
@@ -250,5 +253,63 @@ function weatherconditions(iconcode){
     return srcLink
 }
 
-///new function
-function getPOIs(){}
+function getPOIs(cityTxt){
+
+    console.log('in getPOIs()');
+    console.log(cityTxt);
+
+    if (cityTxt == 'Barcelona') {
+        console.log('cityTxt == Barcelona');
+
+        var token = 'xViW87Kfb69uLcAUSANFwIqw6Ad6';
+        var pois = [];
+    
+        $.ajax({
+            url: 'https://test.api.amadeus.com/v1/reference-data/locations/pois?latitude=41.397158&longitude=2.160873&radius=3&categories=SIGHTS,NIGHTLIFE,RESTAURANT,SHOPPING',
+            type: 'GET',
+            beforeSend: function(POIresponse) {
+                POIresponse.setRequestHeader('Authorization', 'Bearer ' + token);
+            },
+            data: {},
+            success: function(POIresponse) {
+                console.log('POI call successful.')
+                pois = POIresponse.data;
+                for (i = 0; i < pois.length; i++) {
+    
+                    $('#pois').append(`
+                        <div class="card">
+                            <div class="content">
+                            <div class="header">${pois[i].name.toString()}</div>
+                            <div class="meta">${pois[i].category.toString()}</div>
+                            <div class="description" style="font-size: .9rem">
+                            Tags: ${pois[i].tags.toString().replace(/,/g, ', ')}
+                            </div>
+                            </div>
+                        </div>
+                    `);        
+    
+                // <h4 class="ui sub header"><img id="wicon" src="${iconurl}" alt="Weather icon" style="font-size: 50px;"></h4>
+    
+                } 
+            },
+            error: function() {
+                console.log('Perhaps the auth token expired...')
+            },
+        });
+
+    } else {
+        $('#pois').append(`
+        <div class="card">
+            <div class="content">
+            <div class="header">Lame commercial API</div>
+            <div class="meta"></div>
+            <div class="description" style="font-size: .9rem">
+            The Amadeus POI API requires cash to return data outside of Barcelona. :(
+            </div>
+            </div>
+        </div>
+    `);        
+
+    }
+
+}
