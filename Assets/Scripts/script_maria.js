@@ -33,13 +33,10 @@ $(document).ready(function(event){
             getPOIs(cityTxt);
         }
     });
-    
-
 })
 
 function currentWeatherAPICall(city){
     var queryURLCurentWeather = "https://api.openweathermap.org/data/2.5/forecast?q="+city+"&units=Imperial&appid=" + key;
-    ////add success: getPOIs()
     $.ajax({
         url: queryURLCurentWeather,
         method: "GET"
@@ -261,16 +258,11 @@ function weatherconditions(iconcode){
 }
 
 function getPOIs(cityTxt){
-
-    console.log('in getPOIs()');
-    console.log(cityTxt);
-
     if (cityTxt == 'Barcelona') {
-        console.log('cityTxt == Barcelona');
-
-        var token = 'xViW87Kfb69uLcAUSANFwIqw6Ad6';
-        var pois = [];
-    
+        // this is an oath token with a short expiry
+        // todo: implement oauth to better handle authentication and token expiry
+        var token = 'Djj3uAVHb7ESHtGr0hgvBsqMEVfP';
+        var pois = [];    
         $.ajax({
             url: 'https://test.api.amadeus.com/v1/reference-data/locations/pois?latitude=41.397158&longitude=2.160873&radius=3&categories=SIGHTS,NIGHTLIFE,RESTAURANT,SHOPPING',
             type: 'GET',
@@ -295,28 +287,23 @@ function getPOIs(cityTxt){
                         </div>
                     `);        
     
-                // <h4 class="ui sub header"><img id="wicon" src="${iconurl}" alt="Weather icon" style="font-size: 50px;"></h4>
-    
                 } 
             },
             error: function() {
                 console.log('Perhaps the auth token expired...')
             },
         });
-
     } else {
         $('#pois').append(`
         <div class="card">
             <div class="content">
-            <div class="header">Lame commercial API</div>
+            <div class="header">Commercial API</div>
             <div class="meta"></div>
             <div class="description" style="font-size: .9rem">
-            The Amadeus POI API requires cash to return data outside of Barcelona. :(
+            Unpaid Amadeus accounts have limited functionality, returning data only in Barcelona.
             </div>
             </div>
         </div>
-    `);        
-
+        `);
     }
-
 }
