@@ -6,7 +6,7 @@
 * [x] ~~Use at least one new third-party API~~
 * [x] ~~Must have a polished, mobile-first UI~~
 * [x] ~~Must meet good quality coding standards (indentation, scoping, naming, etc.)~~
-* [x] ~~Does NOT use alerts, confirms, or prompts (look into modals).~~
+* [x] ~~Does NOT use alerts, confirms, or prompts (look into modals)~~
 * [x] ~~Must be deployed to GitHub Pages~~
 * [x] ~~Must be interactive (i.e: accept and respond to user input)~~
 
@@ -19,8 +19,10 @@
 * [x] ~~Links to to the deployed application and the GitHub repository~~
 
 ## Submission on BCS
-* [ ] The URL of the deployed application
-* [ ] The URL of the GitHub repository
-* [x] ## **All functional requirements met.**
+* [x] ~~The URL of the deployed application~~
+* [X] ~~The URL of the GitHub repository~~
+* [x] ## **All functional requirements met**
 
 [deployed app](https://kr4mpu5.github.io/ProjectAgile/)
+
+_nb The Amadeus API POI token has a short expiry. As OAuth is not implemented, POIs will not be returned from Amadeus._
