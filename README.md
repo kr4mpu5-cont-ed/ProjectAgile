@@ -20,7 +20,7 @@
 
 ## Submission on BCS
 * [x] ~~The URL of the deployed application~~
-* [X] ~~The URL of the GitHub repository~~
+* [x] ~~The URL of the GitHub repository~~
 * [x] ## **All functional requirements met**
 
 [deployed app](https://kr4mpu5.github.io/ProjectAgile/)
